@@ -1,6 +1,3 @@
 # ansible_tutorial
 
-This is my awesome Ansible repository!
-...
-
-првоерка 
+This is my awesome Ansible repository! 
