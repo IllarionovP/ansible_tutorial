@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: web_servers
   become: true
   tasks:
 
@@ -13,6 +13,20 @@
       update_cache: yes
     when: ansible_distribution == "Fedora"
 
+  - name: copy deafault file for apache
+    tags: apache,httpd,apache2
+    copy:
+      src: /home/sasuke/ansible_tutorial/file/default_apache.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0664
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+  
   - name: install apache and php for Ubuntu servers
     apt:
       name:
@@ -21,4 +35,3 @@
       state: latest
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
-
