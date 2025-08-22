@@ -1,0 +1,35 @@
+- name: install httpd and php for Fedora servers
+  tags: apache,fedora,httpd
+  dnf:
+    name:
+      - httpd
+      - php
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Fedora"
+
+- name: start and enable httpd(Fedora)
+  tags: apache,fedora,httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_distribution == "Fedora"
+
+- name: restart httpd(Fedora)
+  tags: apache,fedora,httpd
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes
+  when: ansible_distribution == "Fedora"
+
+- name: copy deafault file for apache
+  tags: apache,httpd,apache2
+  copy:
+    src: /home/sasuke/ansible_tutorial/roles/web_servers/files/default_apache.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0664
+
